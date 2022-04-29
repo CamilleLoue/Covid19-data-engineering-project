@@ -1,0 +1,33 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "covid-reporting-ukeu-df"
+		},
+		"ds_sql_cases_deaths_connectionString": {
+			"value": ""
+		},
+		"ls_covid_cluster_accessToken": {
+			"value": ""
+		},
+		"ls_covidreportingdlsa_accountKey": {
+			"value": ""
+		},
+		"ls_ukeucovidreportingsa_connectionString": {
+			"value": ""
+		},
+		"ls_covidreportingdlsa_properties_typeProperties_url": {
+			"value": "https://ukeucovidreportingdlsa.dfs.core.windows.net"
+		},
+		"ls_http_ecdc_europa_properties_typeProperties_url": {
+			"value": "@{linkedService().sourceBaseURL}"
+		},
+		"containerUri": {
+			"value": ""
+		},
+		"containerSasToken": {
+			"value": ""
+		}
+	}
+}

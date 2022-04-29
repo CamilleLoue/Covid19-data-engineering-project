@@ -1,0 +1,124 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "covid-reporting-ukeu-df"
+		},
+		"ds_sql_cases_deaths_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ds_sql_cases_deaths'"
+		},
+		"ls_covid_cluster_accessToken": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accessToken' of 'ls_covid_cluster'"
+		},
+		"ls_covidreportingdlsa_accountKey": {
+			"type": "secureString",
+			"metadata": "Secure string for 'accountKey' of 'ls_covidreportingdlsa'"
+		},
+		"ls_ukeucovidreportingsa_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'ls_ukeucovidreportingsa'"
+		},
+		"ls_covidreportingdlsa_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://ukeucovidreportingdlsa.dfs.core.windows.net"
+		},
+		"ls_http_ecdc_europa_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "@{linkedService().sourceBaseURL}"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "covid-reporting-ukeu-df_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"ds_sql_cases_deaths_connectionString": {
+						"value": "[parameters('ds_sql_cases_deaths_connectionString')]"
+					},
+					"ls_covid_cluster_accessToken": {
+						"value": "[parameters('ls_covid_cluster_accessToken')]"
+					},
+					"ls_covidreportingdlsa_accountKey": {
+						"value": "[parameters('ls_covidreportingdlsa_accountKey')]"
+					},
+					"ls_ukeucovidreportingsa_connectionString": {
+						"value": "[parameters('ls_ukeucovidreportingsa_connectionString')]"
+					},
+					"ls_covidreportingdlsa_properties_typeProperties_url": {
+						"value": "[parameters('ls_covidreportingdlsa_properties_typeProperties_url')]"
+					},
+					"ls_http_ecdc_europa_properties_typeProperties_url": {
+						"value": "[parameters('ls_http_ecdc_europa_properties_typeProperties_url')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "covid-reporting-ukeu-df_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'covid-reporting-ukeu-df_ArmTemplate_0')]"
+			]
+		},
+		{
+			"name": "covid-reporting-ukeu-df_ArmTemplate_2",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2018-02-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_2.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'covid-reporting-ukeu-df_ArmTemplate_1')]"
+			]
+		}
+	]
+}
