@@ -20,7 +20,7 @@
 			}
 		},
 		"folder": {
-			"name": "datasets"
+			"name": "processed"
 		},
 		"annotations": [],
 		"type": "DelimitedText",

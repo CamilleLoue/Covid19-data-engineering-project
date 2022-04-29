@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"folder": {
-			"name": "datasets"
+			"name": "lookup"
 		},
 		"annotations": [],
 		"type": "Json",
