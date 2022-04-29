@@ -1,0 +1,20 @@
+{
+	"name": "ds_sql_hospital_admissions_weekly",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ds_sql_cases_deaths",
+			"type": "LinkedServiceReference"
+		},
+		"folder": {
+			"name": "datasets"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "covid_reporting",
+			"table": "hospital_admissions_weekly"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

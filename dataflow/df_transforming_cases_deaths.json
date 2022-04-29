@@ -1,0 +1,99 @@
+{
+	"name": "df_transforming_cases_deaths",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_raw_cases_deaths",
+						"type": "DatasetReference"
+					},
+					"name": "CasesDeathsSource"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_dim_date_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "DimDateSource"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ds_processed_cases_deaths",
+						"type": "DatasetReference"
+					},
+					"name": "CasesDeathsSink"
+				}
+			],
+			"transformations": [
+				{
+					"name": "AggDimDate"
+				},
+				{
+					"name": "JoinWithDate"
+				},
+				{
+					"name": "AggOnWeeklyBasis"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          dateRep as date 'dd/MM/yyyy',",
+				"          day as short,",
+				"          month as short,",
+				"          year as short,",
+				"          cases as integer,",
+				"          deaths as integer,",
+				"          countriesAndTerritories as string,",
+				"          geoId as string,",
+				"          countryterritoryCode as string,",
+				"          popData2020 as integer,",
+				"          continentExp as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> CasesDeathsSource",
+				"source(output(",
+				"          date_key as string,",
+				"          date as date,",
+				"          year as string,",
+				"          month as string,",
+				"          day as string,",
+				"          day_name as string,",
+				"          day_of_year as string,",
+				"          week_of_month as string,",
+				"          week_of_year as string,",
+				"          month_name as string,",
+				"          year_month as string,",
+				"          year_week as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimDateSource",
+				"DimDateSource aggregate(groupBy(reported_year_week = year+'-W'+lpad(week_of_year,2,'0'),",
+				"          date),",
+				"     week_start_date = min(date),",
+				"          week_end_date = max(date)) ~> AggDimDate",
+				"CasesDeathsSource, AggDimDate join(dateRep == date,",
+				"     joinType:'inner',",
+				"     broadcast: 'auto')~> JoinWithDate",
+				"JoinWithDate aggregate(groupBy(reported_year_week,",
+				"          geoId),",
+				"     weekly_deaths_count = sum(deaths),",
+				"          weekly_cases_count = sum(cases)) ~> AggOnWeeklyBasis",
+				"AggOnWeeklyBasis sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['cases_deaths.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> CasesDeathsSink"
+			]
+		}
+	}
+}

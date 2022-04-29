@@ -1,0 +1,12 @@
+{
+	"name": "ls_ukeucovidreportingsa",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureBlobStorage",
+		"typeProperties": {
+			"connectionString": "DefaultEndpointsProtocol=https;AccountName=ukeucovidreportingsa;EndpointSuffix=core.windows.net;",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDcwNUZDRDE2LTc2RTktNEEyOS04QzJELThCOTNCQzFBNzk1OV9hYTY1MjY5NS1mYzhlLTQwNzYtYjI3Mi1lN2FhOGY2YzIxYjgiDQp9"
+		}
+	}
+}

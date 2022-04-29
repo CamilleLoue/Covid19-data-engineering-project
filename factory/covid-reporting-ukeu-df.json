@@ -1,0 +1,9 @@
+{
+	"name": "covid-reporting-ukeu-df",
+	"location": "uksouth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "90dbcb75-3cb2-43b5-bd85-2f2c458f5056",
+		"tenantId": "77c7ea1c-dbdb-4f47-a08b-20d2dde4ff44"
+	}
+}
