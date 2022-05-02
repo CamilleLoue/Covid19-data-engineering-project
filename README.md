@@ -9,7 +9,7 @@ While Covid 19 has been spreading over the globe for the past two years, it has 
 
 
 ## Included files: 
-Since I integrated GitHub to my Azure Data Factory account, all the files in this repositery are in json format. The only files that are not in this format are located in the **databricks_files** and **schema** folders and have been uploaded for illustrative purposes.
+Since I integrated GitHub to my Azure Data Factory account, all the files in this repository are in json format. The only files that are not in this format are located in the **databricks_files** and **schema** folders and have been uploaded for illustrative purposes.
 
 ## Important note:
 For now the servers are not running since I only have a free-tier Azure account, so if you wish to access and run the entire project on your own machine, please get in touch with me.
