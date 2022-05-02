@@ -1,4 +1,4 @@
-# Covid19-data-engineering-project
+# Covid 19 - Data Engineering project
 
 ## Author: 
 Camille Loue
